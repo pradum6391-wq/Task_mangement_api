@@ -1,0 +1,29 @@
+
+import express from "express";
+
+import {
+    createTask,
+    getTasks,
+    getTaskById,
+    updateTask,
+    deleteTask
+} from "../controllers/taskController.js";
+
+import protect from "../middleware/auth.js";
+
+const router = express.Router();
+
+// All task routes require authentication
+router.use(protect);
+
+// Task CRUD routes
+router.route("/")
+    .post(createTask)
+    .get(getTasks);
+
+router.route("/:id")
+    .get(getTaskById)
+    .put(updateTask)
+    .delete(deleteTask);
+
+export default router;
